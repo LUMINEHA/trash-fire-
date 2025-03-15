@@ -1,0 +1,24 @@
+#define FLAME_SENSOR_PIN A0  
+#define RELAY_PIN 7          
+#define THRESHOLD 200        
+
+void setup() {
+    pinMode(FLAME_SENSOR_PIN, INPUT);
+    pinMode(RELAY_PIN, OUTPUT);
+    digitalWrite(RELAY_PIN, LOW);  
+    Serial.begin(9600);
+}
+
+void loop() {
+    int flameValue = analogRead(FLAME_SENSOR_PIN);
+    Serial.print("Flame Sensor Value: ");
+    Serial.println(flameValue);
+
+    if (flameValue < THRESHOLD) {  
+        digitalWrite(RELAY_PIN, HIGH);  
+        delay(3000);                    
+        digitalWrite(RELAY_PIN, LOW);   
+    }
+
+    delay(500); 
+}
