@@ -1,0 +1,23 @@
+#define FLAME_SENSOR_PIN A0  
+#define RELAY_PIN 7          
+#define THRESHOLD 200        
+
+void setup() {
+    pinMode(FLAME_SENSOR_PIN, INPUT);
+    pinMode(RELAY_PIN, OUTPUT);
+    digitalWrite(RELAY_PIN, LOW);  
+    Serial.begin(9600);
+}
+
+void loop() {
+    int flameValue = analogRead(FLAME_SENSOR_PIN);
+    Serial.print("Flame Sensor Value: ");
+    Serial.println(flameValue);
+
+    if (flameValue < THRESHOLD) {  // Fire detected (low value means fire)
+        digitalWrite(RELAY_PIN, HIGH);  // Turn on pump
+        delay(3000);                    // Pump water for 3 seconds
+        digitalWrite(RELAY_PIN, LOW);   // Turn off pump
+    }
+
+}
